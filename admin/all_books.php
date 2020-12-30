@@ -1,10 +1,28 @@
 <?php
     require_once "db.php";
 
+    if ( isset($_GET['action']) && $_GET['action'] == 'delete' && isset( $_GET['id'] )){
+
+      $id = $_GET['id'];
+      $delete_sql = "DELETE FROM books WHERE id={$id}";
+
+      $deleted = mysqli_query($conn, $delete_sql);
+
+      if ( ! $deleted ) {
+        echo "Failed! Please try again later." . mysqli_errno( $conn );
+    
+    } else {
+        header("Location: index.php?deleted=true");
+    }
+
+
+    }
+
     $sql = "SELECT id, book_name, book_img,	author_name, book_price, book_desc, status FROM books";
   
     $result = mysqli_query($conn, $sql);
     $rows = mysqli_num_rows($result);
+
 
 ?>
 <table class="table table-striped">
@@ -40,7 +58,7 @@
             
             <a href="edit.php?action=edit&id=<?php echo $book['id']; ?>" class="action btn btn-info">Edit</a>
 
-            <a href="edit.php?action=delete&id=<?php echo $book['id']; ?>" class="action btn btn-danger">Delete</a>
+            <a href="index.php?action=delete&id=<?php echo $book['id']; ?>" class="action btn btn-danger delete">Delete</a>
        
           </td>
         </tr>
@@ -49,3 +67,16 @@
   
 </tbody>
 </table>
+
+<script>
+  var delete_btns = document.querySelectorAll('.btn.delete');
+
+  delete_btns.forEach(function(delete_btn , i){
+    delete_btn.addEventListener("click", function(e){
+      
+      if( ! confirm("Are you sure?")){
+        e.preventDefault();
+      }
+    })
+  });
+</script>

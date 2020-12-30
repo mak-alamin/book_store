@@ -17,3 +17,12 @@ if(isset($_GET['updated']) && $_GET['updated'] == "true"){
     </button>
     </div>';
 }
+
+if(isset($_GET['deleted']) && $_GET['deleted'] == "true"){
+    echo '<div class="alert alert-success alert-dismissible fade show" role="alert">
+    Book deleted successfully!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    </div>';
+}
