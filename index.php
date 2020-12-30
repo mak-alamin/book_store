@@ -10,6 +10,9 @@
     $rows = mysqli_num_rows($result);
 
 ?>
+<div id="root">
+    {{test}}
+</div>
 
 <div class="container">
     <h1 class="text-primary text-center mb-4 mt-4">Book Store</h1>
